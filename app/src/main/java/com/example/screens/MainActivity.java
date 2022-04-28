@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivity2() {
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
         intent.putExtra("name", "Eddin");
-        intent.putExtra("ålder", 19);
         startActivity(intent);
     }
 }
