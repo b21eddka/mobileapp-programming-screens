@@ -1,42 +1,49 @@
 
-# Rapport
+En ny aktivitet gjordes genom file -> new -> activity -> empty activity. Därefter skapades en button widget i activity.main.xml, allt placerades med constraintLayout.
+För att knappen skulle öppna en ny aktivitet när tryckt på behövdes en onClickListener läggas till på button i onCreate().
+onClickListener ska enligt min kod köra metoden openActivity2() när tryckt vilket betyder att en sådan metod behövdes göras.
+I openActivity2() skapades en ny intent, data lades till med extra som sedan skulle föras över till den andra aktiviteten samt att startActicity(intent) skrevs.
+i den andra aktiviteten instansierades en bundle med namn extras som fick värdet av "getIntent().getExtras()".
+Om extras hade ett värde skulle den ta aktivitet 1 värde och visa det i textView.
 
-**Skriv din rapport här!**
+```@Override
+       protected void onCreate(Bundle savedInstanceState) {
+           super.onCreate(savedInstanceState);
+           setContentView(R.layout.activity_main);
 
-_Du kan ta bort all text som finns sedan tidigare_.
+           Button button = (Button) findViewById(R.id.button);
+           button.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   openActivity2();
+               }
+           });
+       }
 
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
+       public void openActivity2() {
+           Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+           intent.putExtra("name", "Eddin");
+           startActivity(intent);
+       }
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+...
+TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+        textView = findViewById(R.id.activity2);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String name = extras.getString("name");
+           textView.setText(name);
+        }
     }
-}
-```
+...
 
-Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
 
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+![](Screenshot_20220429_185532.png)
+![](Screenshot_20220429_185600.png)
