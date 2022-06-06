@@ -6,7 +6,8 @@ I openActivity2() skapades en ny intent, data lades till med extra som sedan sku
 i den andra aktiviteten instansierades en bundle med namn extras som fick värdet av "getIntent().getExtras()".
 Om extras hade ett värde skulle den ta aktivitet 1 värde och visa det i textView.
 
-```@Override
+```
+@Override
        protected void onCreate(Bundle savedInstanceState) {
            super.onCreate(savedInstanceState);
            setContentView(R.layout.activity_main);
@@ -26,7 +27,8 @@ Om extras hade ett värde skulle den ta aktivitet 1 värde och visa det i textVi
            startActivity(intent);
        }
 ```
-...
+
+```
 TextView textView;
 
     @Override
@@ -41,9 +43,10 @@ TextView textView;
            textView.setText(name);
         }
     }
-...
+```
 
 
 
 ![](Screenshot_20220429_185532.png)
+
 ![](Screenshot_20220429_185600.png)
